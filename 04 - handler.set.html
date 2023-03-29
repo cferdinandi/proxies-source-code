@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.set()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Define or update a property
+				 * @param  {Object|Array}   obj   The object or array the Proxy is handling
+				 * @param  {String|Integer} key   The property key or index
+				 * @param  {*}              value The value to assign to the property
+				 * @return {Boolean}              Return true if the value was set
+				 */
+				set (obj, key, value) {
+					console.log('running');
+					obj[key] = value;
+					return true;
+
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// Runs the set() handler
+			wizard.age = 172;
+			console.log(wizard.age);
+		</script>
+	</body>
+</html>

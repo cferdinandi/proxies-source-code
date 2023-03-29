@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>The handler object and traps</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			// An object
+			let wizard = {
+				name: 'Merlin',
+				tool: 'Wand'
+			};
+
+			// Create a Proxy object
+			let wizardProxy = new Proxy(wizard, {
+
+				/**
+				 * Runs when a property value is retrieved
+				 * @param  {Object|Array}   obj The object or array the Proxy is handling
+				 * @param  {String|Integer} key The property key or index
+				 */
+				get (obj, key) {
+					console.log('get', obj, key, obj[key]);
+					return obj[key];
+				},
+
+				/**
+				 * Runs when a property is defined or updated
+				 * @param  {Object|Array}   obj   The object or array the Proxy is handling
+				 * @param  {String|Integer} key   The property key or index
+				 * @param  {*}              value The value to assign to the property
+				 */
+				set (obj, key, value) {
+
+					console.log('set', obj, key, value);
+
+					// Update the property
+					obj[key] = value;
+
+					// Indicate success
+					// This is required
+					return true;
+
+				},
+
+				/**
+				 * Runs when a property is deleted
+				 * @param  {Object|Array}   obj   The object or array the Proxy is handling
+				 * @param  {String|Integer} key   The property key or index
+				 */
+				deleteProperty (obj, key) {
+
+					console.log('delete', obj, key, obj[key]);
+
+					// Delete the property
+					delete obj[key];
+
+					// Indicate success
+					// This is required
+					return true;
+
+				}
+
+			});
+
+			// Runs the get() trap and logs...
+			let name = wizardProxy.name;
+
+			// Runs the set() trap and logs...
+			wizardProxy.age = 172;
+
+			// Runs the deleteProperty() trap and logs...
+			delete wizardProxy.tool;
+		</script>
+	</body>
+</html>

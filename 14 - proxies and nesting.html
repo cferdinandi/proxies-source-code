@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Proxies and Nesting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			// An object with a nested array
+			let wizard = {
+				name: 'Merlin',
+				tool: 'wand',
+				spells: ['Abbracadabra', 'Disappear']
+			};
+
+			// A handler object
+			let handler = {
+				get (obj, key) {
+					console.log('get', key);
+					return obj[key];
+				},
+				set (obj, key, value) {
+					console.log('set', key);
+					obj[key] = value;
+					return true;
+				}
+			};
+
+			// Create a new Proxy
+			let wizardProxy = new Proxy(wizard, handler);
+
+			// Update the Proxy object
+			let name = wizardProxy.name;
+			wizardProxy.age = 172;
+
+			// Update the nested array
+			wizardProxy.spells.push('Heal');
+		</script>
+	</body>
+</html>

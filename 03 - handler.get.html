@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.get()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Retrieve a property
+				 * @param  {Object|Array}   obj The object or array the Proxy is handling
+				 * @param  {String|Integer} key The property key or index
+				 * @return {*}                  The property value
+				 */
+				get (obj, key) {
+					console.log('running');
+					return obj[key];
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// Runs the get() handler
+			let name = wizard.name;
+			console.log(name);
+		</script>
+	</body>
+</html>

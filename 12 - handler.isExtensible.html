@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.isExtensible()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Run the static Object.isExtensible() method
+				 * @param  {Object}  obj The object
+				 * @return {Boolean}     If true, object can have properties added to it
+				 */
+				isExtensible (obj) {
+					console.log('running');
+					return Object.isExtensible(obj);
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// runs the isExtensible() handler
+			let extensible = Object.isExtensible(wizard);
+			console.log(extensible);
+		</script>
+	</body>
+</html>

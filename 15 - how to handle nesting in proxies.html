@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>How to handle nesting in Proxies</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			// An object with a nested array
+			let wizard = {
+				name: 'Merlin',
+				tool: 'wand',
+				spells: ['Abbracadabra', 'Disappear']
+			};
+
+			// A handler object
+			function handler () {
+				return {
+					get (obj, key) {
+						console.log('get', key);
+
+						// If the item is an object or array, return a proxy
+						let nested = ['[object Object]', '[object Array]'];
+						let type = Object.prototype.toString.call(obj[key]);
+						if (nested.includes(type)) {
+							return new Proxy(obj[key], handler());
+						}
+
+						return obj[key];
+					},
+					set (obj, key, value) {
+						console.log('set', key);
+						obj[key] = value;
+						return true;
+					}
+				};
+			}
+
+			// Create a new Proxy
+			let wizardProxy = new Proxy(wizard, handler());
+
+			// Update the nested array
+			wizardProxy.spells.push('Heal');
+		</script>
+	</body>
+</html>

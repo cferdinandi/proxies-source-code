@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>The Proxy Object</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let wizard = {
+				name: 'Merlin',
+				tool: 'Wand'
+			};
+
+			// Create a Proxy object
+			let wizardProxy = new Proxy(wizard, {});
+
+			console.log(wizardProxy);
+		</script>
+	</body>
+</html>

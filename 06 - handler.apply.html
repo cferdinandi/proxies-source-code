@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.apply()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Run a property method
+				 * @param  {Function} fn       The target function
+				 * @param  {this}     thisArg  The value for the `this` keyword
+				 * @param  {Array}    args     The function arguments
+				 */
+				apply (fn, thisArg, args) {
+					console.log('running');
+					fn(...args);
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand',
+				castSpell () {
+					console.log('Abbracadabra!');
+				}
+			}, handler);
+
+			// runs the apply() handler
+			wizard.castSpell();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.construct()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Instantiate a constructor property with the `new` keyword
+				 * @param  {Constructor} constructor The constructor function
+				 * @param  {Array}     args An array of function arguments
+				 * @return {Instance}       A newly instantiated instance
+				 */
+				construct (constructor, args) {
+					console.log('running');
+					return new constructor(...args);
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy(class Wizard {
+					constructor (name, tool) {
+						this.name = name;
+						this.tool = tool;
+					}
+				}, handler);
+
+			// runs the constructor() handler
+			let spell = new wizard('Merlin', 'wand');
+		</script>
+	</body>
+</html>

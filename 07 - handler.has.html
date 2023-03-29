@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.has()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Use the `in` operator
+				 * @param  {Object}  obj The object
+				 * @param  {String}  key The property key name
+				 * @return {Boolean}     Return true if the object has the key
+				 */
+				has (obj, key) {
+					console.log('running');
+					return key in obj;
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// runs the has() handler
+			if ('tool' in wizard) {
+				// Do something...
+			}
+		</script>
+	</body>
+</html>

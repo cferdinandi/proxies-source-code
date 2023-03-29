@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.getOwnPropertyDescriptor()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Run the static Object.getOwnPropertyDescriptor() method
+				 * @param  {Object} obj The object to run the method on
+				 * @param  {String} key The property key name
+				 * @return {Object}     The property descriptor object
+				 */
+				getOwnPropertyDescriptor (obj, key) {
+					console.log('running');
+					return Object.getOwnPropertyDescriptor(obj, key);
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// runs the getOwnPropertyDescriptor() handler
+			let descriptor = Object.getOwnPropertyDescriptor(wizard, 'tool');
+			console.log(descriptor);
+		</script>
+	</body>
+</html>

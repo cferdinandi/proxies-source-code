@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.defineProperty()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Run the static Object.defineProperty() method
+				 * @param  {Object}  obj   The object to define a property of
+				 * @param  {String}  key   The property key name
+				 * @param  {Object}  props The properties defined or modified
+				 * @param  {Boolean}       Return true if the property was defined
+				 */
+				defineProperty (obj, key, props) {
+					console.log('running');
+					Object.defineProperty(obj, key, props);
+					return true;
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// runs the defineProperty() handler
+			Object.defineProperty(wizard, 'age', {
+				value: 172,
+				writable: false
+			});
+			console.log(wizard.age);
+		</script>
+	</body>
+</html>

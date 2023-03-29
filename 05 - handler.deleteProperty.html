@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.deleteProperty()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Delete a property
+				 * @param  {Object|Array}   obj   The object or array the Proxy is handling
+				 * @param  {String|Integer} key   The property key or index
+				 * @return {Boolean}              Return true if the property was deleted
+				 */
+				deleteProperty (obj, key) {
+					console.log('running');
+					delete obj[key];
+					return true;
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// runs the deleteProperty() handler
+			let deleted = delete wizard.tool;
+			console.log(deleted, wizard.tool);
+		</script>
+	</body>
+</html>

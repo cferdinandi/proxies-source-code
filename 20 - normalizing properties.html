@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Normalizing Properties</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			// Wizard data
+			let wizard = {
+				name: 'Merlin',
+				tool: 'wand'
+			};
+
+			// A handler object
+			let handler = {
+				get (obj, key) {
+					key = key.toLowerCase();
+					return obj[key];
+				},
+				set (obj, key, value) {
+					key = key.toLowerCase();
+					obj[key] = value;
+					return true;
+				},
+				deleteProperty (obj, key) {
+					key = key.toLowerCase();
+					delete obj[key];
+					return true;
+				}
+			};
+
+			// Create a new Proxy object
+			let wizardProxy = new Proxy(wizard, handler);
+
+			// This would throw an error
+			// let name = wizard.NAME;
+
+			// This works just fine
+			let name = wizardProxy.NAME;
+		</script>
+	</body>
+</html>

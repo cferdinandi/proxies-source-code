@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Automatically save data to localStorage</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			// Todo list
+			let todos = ['Eat', 'Sleep', 'Go to the beach'];
+
+			/**
+			 * Save todos to localStorage
+			 * @param  {Array} arr The todo list
+			 */
+			function save (arr) {
+				localStorage.setItem('todos', JSON.stringify(arr));
+			}
+
+			// A handler object
+			let handler = {
+				set (obj, key, value) {
+					obj[key] = value;
+					save(obj);
+					return true;
+				},
+				deleteProperty (obj, key) {
+					delete obj[key];
+					save(obj);
+					return true;
+				}
+			};
+
+			// Create a new Proxy object
+			let todosProxy = new Proxy(todos, handler);
+
+			// Examples
+			// todosProxy.push('Go to the store');
+			// todosProxy.push('Buy toothpaste');
+			// todosProxy.splice(0, 1);
+		</script>
+	</body>
+</html>

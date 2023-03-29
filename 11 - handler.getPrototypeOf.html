@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.getPrototypeOf()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Run the static Object.getPrototypeOf() method
+				 * @param  {Object} obj The object
+				 * @return {Object}     The prototype object
+				 */
+				getPrototypeOf (obj) {
+					console.log('running');
+					return Object.getPrototypeOf(obj);
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// runs the getPrototypeOf() handler
+			let proto = Object.getPrototypeOf(wizard, 'tool');
+			console.log(proto);
+		</script>
+	</body>
+</html>

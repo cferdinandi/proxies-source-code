@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>handler.preventExtensions()</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+
+		<script>
+			let handler = {
+
+				/**
+				 * Run the static Object.preventExtensions() method
+				 * @param  {Object}  obj The object
+				 * @return {Boolean}     Returns true if extensions are prevented
+				 */
+				preventExtensions (obj) {
+					console.log('running');
+					Object.preventExtensions(obj);
+					return true;
+				}
+
+			};
+
+			// Create a proxy
+			let wizard = new Proxy({
+				name: 'Merlin',
+				tool: 'wand'
+			}, handler);
+
+			// runs the preventExtensions() handler
+			Object.preventExtensions(wizard);
+		</script>
+	</body>
+</html>

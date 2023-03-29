@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Detecting Proxies</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+
+		<script>
+			// A handler object
+			function handler () {
+				return {
+					get (obj, key) {
+
+						// If the key is "_isProxy", return true
+						// This will only happen if the property is already a Proxy
+						if (key === '_isProxy') return true;
+
+						// If the item is an object or array and not already a Proxy, return a new Proxy
+						let nested = ['[object Object]', '[object Array]'];
+						let type = Object.prototype.toString.call(obj[key]);
+						if (nested.includes(type) && !obj[key]._isProxy) {
+							return new Proxy(obj[key], handler());
+						}
+
+						// Otherwise, return the property
+						return obj[key];
+
+					},
+					set (obj, key, value) {
+						obj[key] = value;
+						return true;
+					}
+				};
+			}
+
+			// Create a new Proxy
+			let data = new Proxy({
+				wizards: {
+					list: ['Gandalf', 'Radagast', 'Merlin']
+				},
+				witches: {
+					list: ['Ursula', 'Wicked Witch Of The West', 'Malificent']
+				}
+			}, handler());
+
+			// Reverse the witches and wizards properties
+			function swapMagic (index) {
+				let tempCache = data.wizards.list;
+				data.wizards.list = data.witches.list;
+				data.witches.list = tempCache;
+				console.log(`swapped ${index + 1} times`);
+			}
+
+			// Run swapMagic() a few dozen times
+			// WARNING: this will slow down or crash your browser
+			function runSwap () {
+				for (let i = 0; i < 30; i++) {
+					swapMagic(i);
+				}
+			}
+		</script>
+	</body>
+</html>
