@@ -27,16 +27,12 @@
 			};
 
 			// Create a proxy
-			let wizard = new Proxy({
-				name: 'Merlin',
-				tool: 'wand',
-				castSpell () {
-					console.log('Abbracadabra!');
-				}
+			let castSpell = new Proxy(function () {
+				console.log('Abbracadabra!');
 			}, handler);
 
 			// runs the apply() handler
-			wizard.castSpell();
+			castSpell();
 		</script>
 	</body>
 </html>
